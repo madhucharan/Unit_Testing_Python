@@ -1,6 +1,6 @@
 # Unit Testing in Python
 
-First we need to know about what is unit test and When and Why do we use them
+First we need to know about what is unit testing, When and Why do we use them
 
 <p>We often check our code whenever we write functions or classes by passing some variables just to make sure the code is working properly as we thought.Lets say we have changed our code after some point of time. Now we have to again test this function by passing some arguments and verify if its correct or not. 
 
@@ -71,10 +71,13 @@ Generally we pass two values and check its giving right value or not.But in a ge
 
 <li>So we need to use pytest as an alternative.To use pytest we need to create a separate module and write our test cases there and we should name the testing module as test_name.py and this is a naming convention used so that python will recognize this module as a test module.</li>
 
-<li>Import the code module (here func.py) into test_func (here in test_name - name can be anything and I have named it as func because I am going to test the func module. </li>
+<li>Import the code module (here func.py) into test_func (here in test_name - name can be anything and I have named it as **func** because I am going to test the func module. </li>
 
     import func.py
-    ## The same naming convention applies to the functions in our testing module and the test functions should also start with testname
+    ***
+    The same naming convention applies to the functions in our testing module 
+    and the test functions should also start with testname
+    ***
     def test_sum():
         assert sum(10,5) == 15
         
