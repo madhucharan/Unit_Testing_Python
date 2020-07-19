@@ -71,7 +71,7 @@ Generally we pass two values and check its giving right value or not.But in a ge
 
 <li>So we need to use pytest as an alternative.To use pytest we need to create a separate module and write our test cases there and we should name the testing module as test_name.py and this is a naming convention used so that python will recognize this module as a test module.</li>
 
-<li>Import the code module (here func.py) into test_func (here in test_name - name can be anything and I have named it as **func** because I am going to test the func module. </li>
+<li>Import the code module (here func.py) into test_func (here in test_name - name can be anything and I have named it as _func_ because I am going to test the func module. </li>
 
     import func.py
     ***
