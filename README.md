@@ -105,7 +105,7 @@ Now lets work on pytest by creating some unit tests by ourselves so that we will
 
 Note: All the code will be placed  in the repository to check and run in your own system.
 
-### Example 1
+### Example 1:
 Lets say we have a function that takes birth year as an input and outputs the age of the person in years.Lets try this code
 
 Name the module as agepred.py
@@ -147,7 +147,7 @@ The output will be as follows:
 
 Lets go to another example and we will try different features in pytest module too for each example
 
-### Example 2
+### Example 2:
 
 In this example we will be writing a function to find whether the entered year is a leap year or not 
 
@@ -188,7 +188,7 @@ Output:
     
     ================================================== 1 passed in 0.12s ==================================================
     
-### Example 3
+### Example 3:
 
 Now we will implement another function and also test it with wrong statement or code error and look how the output will be
 
@@ -283,3 +283,195 @@ we can improve the above code by extending the if statement to classify wrong em
 
         else:
             return "Invalid Email"
+            
+### Example 4:
+We will write a function on handling exceptions with pytest
+ 
+We will discuss a simple example of division by zero and see how to handle exception
+
+    import pytest
+
+    def div(value):
+            return value / 0
+    
+        
+ The test code will be as follows 
+ 
+    from divide import *
+    import pytest
+    def test_div():
+        with pytest.raises(ZeroDivisionError):
+            div(2)
+
+The output will be passed and it will be as follows:
+
+    test_divide.py::test_div PASSED                                          [100%]
+    
+    ============================== 1 passed in 0.02s ==============================
+    
+    Process finished with exit code 0   
+    
+    
+**Note:** If there is no exception raised now it will raise the exception and the output will be-
+
+    test_divide.py::test_div FAILED                                          [100%]
+    test_divide.py:2 (test_div)
+    def test_div():
+            # with pytest.raises(ZeroDivisionError):
+    >           div(2)
+    
+    test_divide.py:5: 
+    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+    
+    value = 2
+    
+        def div(value):
+    >           return value / 0
+    E           ZeroDivisionError: division by zero
+    
+    divide.py:4: ZeroDivisionError
+
+
+
+### Example 5:
+
+Here we will implement a different approach and also we will try to run the code in a different manner.Lets check this
+
+let us assume that we are writing a function that takes 2D numpy array as input and it will divide the array into two parts by dividing the no.of rows.
+
+So we need to input the array as 2D and if the array dimention is not 2D it is going to raise an exception.
+
+This example can help us in data science or ml process where we always divide training and testing data sets.
+
+The function will be as follows:
+
+    
+    def split(data):
+        no_rows = data.shape[0]
+        firsthalf =no_rows-0.5*no_rows
+        return firsthalf
+        
+Now lets look at the first test function by passing a 2D array
+
+    from splitdata import *
+    import numpy as np
+    def test_split():
+        data= np.array([[2,1],[3,4],[5,6],[9,8]])
+        #we know that first half should be 2 rows and lets check it
+        assert split(data)==2,"they are not equal and there is a mistake"
+
+**Note: You can observe here that we can attach a string after the assert statement and it will print the string if the test goes wrong**
+
+
+### Example 7:
+
+We will mostly use pytest in deep learning also.
+
+Lets take a case that the function will take some shape arguments as inputs and intialises input arrays to feed into input layers in a deep neural network.
+
+We have no time to check them everytime my checking their shape if its correct or not.So we will initialize a test function for that
+
+Before writing the function lets get some intuition on the arrays/vectors shapes in DNN
+
+Let,
+
+The weight matrix shape will be of (current layer size,previous layer size)
+the bias matrix shape will be of (current layer size,1)
+
+Lets initialize a function for it 
+
+    import numpy as np
+
+    def initializing(n_p,n_i,n_o):
+    
+        #let ni= current layer size
+        #let npp=previous layer size
+        #let no=size of output layer which is fed into next layer
+        W1 = np.random.randn(n_i, n_p) * 0.01
+        b1 = np.zeros((n_i, 1))
+        W2 = np.random.randn(n_o, n_i) * 0.01
+        b2 = np.zeros((n_o, 1))
+        return W1,W2,b1,b2
+        
+The test function should check the data of the input everytime so that it will make our work easy
+
+    import numpy as np
+    from initialization import *
+    def test_shape():
+        W1,W2,b1,b2= initializing(5,3,2)
+        assert (W1.shape == (3,5))
+        assert (b1.shape == (3, 1))
+        assert (W2.shape == (2, 3))
+        assert (b2.shape == (2, 1))
+        
+As the shapes were correct the output will be 
+
+    test_initialization.py::test_shape PASSED                                [100%]
+
+    ============================== 1 passed in 0.01s ==============================
+    
+    Process finished with exit code 0
+    
+ This pytest will help a lot in deep neural network as mistakes happens frequently in the shapes of the vectors and other calculations too like calculating gradient/activation functions etc.
+ 
+ #Example 7:
+ 
+ We will write a function that takes a sentence as an input and outputs a list of words in that sentence
+ 
+ the function is as follows:
+ 
+    def formlist(statement):
+    list= statement.split()
+    return list
+the test function will be :
+
+    
+    from make_list import *
+    def test_formlist():
+        statement = "This is pytest"
+        assert formlist(statement)==['This','is','pytest']
+ 
+      
+The output is right as they were equal
+
+
+We can furthur continue the above test lets say we input a sentence it should remove the repeated words and give output so we can check with the following test
+
+    def test_unique():
+    statement = "This is pytest example.Check This"
+    assert list(set(formlist(statement))).sort()==['This ' ,'is','pytest','example.Check'].sort()
+    
+**Note** : Here I have just written the following in assert statement but these statements will be in a function but not like the above.The assert statement just checks the return value and the expected output.
+
+
+###Example 8:
+
+Some times we need to initialize the variables in everytest case as in the above examples.To overcome that there are some methods that will initialize at the beginning of the tests
+
+They are :
+
+1.SetUp()
+2.TearDown()
+
+Setup is for initialization and Teardown will revoke the variables initialized at the end
+
+The initializations example will be as follows:
+
+    def Setup(self):
+        statement = "This is pytest"
+     
+    def TearDown(self):
+         pass
+
+NOTE:
+
+
+
+<ul>
+<li>To have a detailed explanation of the test output we can run pytest name.py -V
+ </li>
+ 
+ <li>We can also run "pytest" and python automatically checks for the test modules and runs them if they were present in the path directory </li>
+
+</ul>
+
