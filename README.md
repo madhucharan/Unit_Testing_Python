@@ -103,11 +103,92 @@ And then it will show the error where our code went wrong.
 
 Now lets work on pytest by creating some unit tests by ourselves so that we will get hands on experience.
 
+Note: All the code will be placed  in the repository to check and run in your own system.
+
 ### Example 1
 Lets say we have a function that takes birth year as an input and outputs the age of the person in years.Lets try this code
 
+Name the module as agepred.py
 
+    def age(year):
+    return 2020-year
 
+    def age_in_weeks(year):
+    ##this function assumes that a year has exactly 52 weeks
+    return (2020-year)*52
 
+    
+Now create an another module called test_agepred.py and import agepred into it.
 
+Make sure they are in same directory otherwise it raises an error.
+
+    from agepred import *
+    
+    def test_age():
+    assert(age(2000)==20)
+
+    def test_age_in_years():
+    assert age_in_weeks(2010)==520
+
+Now save and run the following command on the terminal:
+
+    pytest test_agepred.py
+
+The output will be as follows:
+
+    ================================================= test session starts =================================================
+    platform win32 -- Python 3.8.3, pytest-5.4.3, py-1.9.0, pluggy-0.13.1
+    rootdir: C:\Users\charan\Desktop\Unit_Testing_Python\Example1
+    collected 1 item
+
+    test_agepred.py .                                                                                                [100%]
+
+    ================================================== 1 passed in 0.02s ==================================================
+
+Lets go to another example and we will try different features in pytest module too for each example
+
+### Example 2
+
+In this example we will be writing a function to find whether the entered year is a leap year or not 
+
+Name the module as Leapy.py and create a function in it as isLeapYear()
+
+    def isLeapYear(year):
+    
+    if (year % 4) == 0:  
+       if (year % 100) == 0:  
+           if (year % 400) == 0:  
+               print("{0} is a leap year".format(year))  
+           else:  
+               print("{0} is not a leap year".format(year))  
+       else:  
+           print("{0} is a leap year".format(year))  
+    else:  
+       print("{0} is not a leap year".format(year))  
+
+Now create a test function for this in a new module called test_leapy.py and the code will be as follows:
+
+    import leapy
+    #here we can import it in another way from above example or we can also use
+    #from leapy import *
+    
+    def test_isLeapYear():
+        assert(isLeapYear(2020) == "2020 is a leap year"
+Now the output will be as follows:
+
+    pytest test_leapy.py
+Output:
+
+    ================================================= test session starts =================================================
+    platform win32 -- Python 3.8.3, pytest-5.4.3, py-1.9.0, pluggy-0.13.1
+    rootdir: C:\Users\charan\Desktop\Unit_Testing_Python\Example2
+    collected 1 item
+    
+    test_leapy.py .                                                                                                  [100%]
+    
+    ================================================== 1 passed in 0.12s ==================================================
+    
+### Example 3
+
+Now we will implement another function and also test it with wrong statement or code error and look how the output will be
 
