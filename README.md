@@ -173,7 +173,7 @@ Now create a test function for this in a new module called test_leapy.py and the
     #from leapy import *
     
     def test_isLeapYear():
-        assert(isLeapYear(2020) == "2020 is a leap year"
+        assert isLeapYear(2020) == "2020 is a leap year"
 Now the output will be as follows:
 
     pytest test_leapy.py
@@ -192,3 +192,94 @@ Output:
 
 Now we will implement another function and also test it with wrong statement or code error and look how the output will be
 
+<li>Let us think that we need to write a program that checks whether the given input Email address is valid or not</li>
+The rules of a vaild Email address will be :
+<ol>
+<li>All the letters should be in lowercase</li>
+<li>Should end with @domain.com /@domain.in </li>
+<li>should have only one @</li>
+etc..
+</ol>
+We are going to import regular expression toolkit as it has many inbuilt functions for these kind of tasks
+
+The code will be as follows:
+
+    import re 
+  
+    # Make a regular expression 
+    # for validating an Email 
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+          
+    # Define a function for 
+    # for validating an Email 
+    def check(email):  
+        # pass the regular expression 
+        # and the string in search() method 
+        if(re.search(regex,email)):  
+            return "Valid Email"  
+          
+
+Now check for some cases by giving inputs as some wrong as well as correct cases.
+
+### Important note:
+We are writing these test cases to validate our function in all type of cases like we should also check them whether the function is working correctly in edge cases or not so it is better to think and write all the test and edge cases before writing the function so that we will be having an idea of what could go wrong.This will give an idea of writing a better function.
+
+Now create another test module and import the above module into it.Now the code will look like-
+
+**Note:
+We are going to match strings here in another method using re module**  
+
+    import re
+
+    from mailcheck import *
+    
+    def test_check():
+        #we use re module functions for matching strings in first assert statement
+        
+        value = check("contact@email.com")
+        assert re.match("Valid Email",value)
+        
+        #this should fail as it is not a vaild email
+        assert check("madhucharan") == "Valid Email"
+        
+It gives an assertion error as it fails the case as we gave an invalid email.
+It also gives us a detailed explanation about the wrong case
+
+    ================================================= test session starts =================================================
+    platform win32 -- Python 3.8.3, pytest-5.4.3, py-1.9.0, pluggy-0.13.1
+    rootdir: C:\Users\charan\Desktop\Unit_Testing_Python\Example3
+    collected 1 item
+    
+    test_mailcheck.py F                                                                                              [100%]
+    
+    ====================================================== FAILURES =======================================================
+    _____________________________________________________ test_check ______________________________________________________
+    
+        def test_check():
+            #we use re module functions for matching strings in first assert statement
+            value = check("contact@gmail.com")
+            assert re.match("Valid Email",value)
+            #this should fail as it is not a vaild email
+    >       assert check("madhucharan") == "Valid Email"
+    E       AssertionError: assert None == 'Valid Email'
+    E        +  where None = check('madhucharan')
+    
+    test_mailcheck.py:10: AssertionError
+    ================================================== warnings summary ===================================================
+    mailcheck.py:5
+      C:\Users\charan\Desktop\Unit_Testing_Python\Example3\mailcheck.py:5: DeprecationWarning: invalid escape sequence \.
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    
+    -- Docs: https://docs.pytest.org/en/latest/warnings.html
+    =============================================== short test summary info ===============================================
+    FAILED test_mailcheck.py::test_check - AssertionError: assert None == 'Valid Email'
+    ============================================ 1 failed, 1 warning in 0.45s =============================================
+    
+Note:
+we can improve the above code by extending the if statement to classify wrong emails as well.The code will be like this-
+
+        if (re.search(regex, email)):
+            return "Valid Email"
+
+        else:
+            return "Invalid Email"
